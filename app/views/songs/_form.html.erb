@@ -1,6 +1,13 @@
 <h1>New Song</h1>
 
 <%= form_for @song do |f| %>
+  <ul>
+    <% @song.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+
+
   <%= f.label :name %>
   <%= f.text_field :name %>
 
@@ -10,7 +17,7 @@
   <%= f.label :genre %>
   <%= f.text_field :genre %>
 
-  <%= f.submit "Create" %>
+  <%= f.submit (@song.new_record? ? "Create" : "New") %>
 <% end %>
 <hr>
 <%= link_to "[All Songs]", root_path %>
