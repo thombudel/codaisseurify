@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root "songs#index"
 
-  get "songs" => "songs#index"
+  resources :songs
+  resources :artists
 end
