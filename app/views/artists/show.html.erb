@@ -1,19 +1,36 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @artist.name %>
-</p>
+<h1>Songs</h1>
 
-<p>
-  <strong>Bio:</strong>
-  <%= @artist.bio %>
-</p>
 
-<p>
-  <strong>Image url:</strong>
-  <%= @artist.image_url %>
-</p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Duration (in seconds)</th>
+      <th>Genre</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
 
-<%= link_to 'Edit', edit_artist_path(@artist) %> |
-<%= link_to 'Back', artists_path %>
+  <tbody>
+    <% if @artist.songs.any? %>
+      <% @artist.songs.each do |song| %>
+      <tr>
+        <td><%= song.name %></td>
+        <td><%= song.duration %></td>
+        <td><%= song.genre %></td>
+        <td><%= link_to "[Delete Song]", song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    <% end %>
+    <tr>
+      <td><%= link_to "[Add New Song]", new_song_path %></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+
+<%= link_to "[All Artists]", artists_path %>

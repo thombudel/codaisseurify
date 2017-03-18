@@ -10,6 +10,7 @@ class ArtistsController < ApplicationController
   # GET /artists/1
   # GET /artists/1.json
   def show
+    @artist = Artist.find(params[:id])
   end
 
   # GET /artists/new
@@ -54,12 +55,16 @@ class ArtistsController < ApplicationController
   # DELETE /artists/1
   # DELETE /artists/1.json
   def destroy
-    @artist.destroy
-    respond_to do |format|
-      format.html { redirect_to artists_url, notice: 'Artist was successfully destroyed.' }
-      format.json { head :no_content }
+    @artist=Artist.find(params[:id])
+    if @artist.destroy
+    flash[:notice] ="Artist Deleted"
+    redirect_to root_path
+    else
+    render "delete"
     end
   end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
