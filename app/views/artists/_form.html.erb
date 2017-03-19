@@ -27,6 +27,6 @@
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit (@artist.new_record? ? "Create a section" : "Edit section") %>
   </div>
 <% end %>
