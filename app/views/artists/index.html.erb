@@ -23,7 +23,7 @@
         <%end%>
         </td>
 
-        <td><%= link_to 'Delete Artist', artist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to "[Delete Artist]", artist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -31,4 +31,4 @@
 
 <br>
 
-<%= link_to 'Add New Artist', new_artist_path %>
+<%= link_to "[Add New Artist]", new_artist_path %>
