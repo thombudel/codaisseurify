@@ -11,6 +11,7 @@ class ArtistsController < ApplicationController
   # GET /artists/1.json
   def show
     @artist = Artist.find(params[:id])
+    @photos = @artist.photos
   end
 
   # GET /artists/new
@@ -27,16 +28,19 @@ class ArtistsController < ApplicationController
   def create
     @artist = Artist.new(artist_params)
 
-    respond_to do |format|
-      if @artist.save
-        format.html { redirect_to @artist, notice: 'Artist was successfully created.' }
-        format.json { render :show, status: :created, location: @artist }
-      else
-        format.html { render :new }
-        format.json { render json: @artist.errors, status: :unprocessable_entity }
+
+    if @artist.save
+      image_params.each do |image|
+        @artist.photos.create(image: image)
       end
+
+      redirect_to root_path(@artist), notice: "Artist successfully created"
+    else
+      render :new
     end
   end
+
+
 
   # PATCH/PUT /artists/1
   # PATCH/PUT /artists/1.json
@@ -75,5 +79,11 @@ class ArtistsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def artist_params
       params.require(:artist).permit(:name, :bio, :image_url)
+    end
+
+    private
+
+    def image_params
+      params[:images].present? ? params.require(:images) : []
     end
 end
